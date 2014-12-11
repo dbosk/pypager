@@ -67,7 +67,7 @@ def memalg_esc( osmem, p, pt ):
 		best_idx = qhead
 
 		for i in range( len( queue ) ):
-			cur = ( qhead + i ) % len( queue )
+			cur = qhead % len( queue )
 			page = pt[ queue[ cur ] ]
 
 			# check the different classes
@@ -89,19 +89,19 @@ def memalg_esc( osmem, p, pt ):
 
 			# reset the referenced bit to see which are used to next time
 			page.referenced = False
+			qhead = ( qhead + 1 ) % len( queue )
+
+		qhead = best_idx
 
 		# swap-out the best choice
-		pn = queue[ best_idx ]
+		pn = queue[ qhead ]
 		pt[pn].valid = False
 		osmem.swap_out( pn )
 		# allocate newly freed frame
 		pt[p].frame = pt[pn].frame
 
-		# remove the old entry from the queue
-		remove_from_queue( best_idx )
-
 		# update the queue, add the new page to the end of the queue
-		queue[ (qhead-1) % len(queue) ] = p
+		queue[ qhead % len(queue) ] = p
 		qhead = ( qhead + 1 ) % len( queue )
 
 	# actually swap in the page
