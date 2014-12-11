@@ -75,11 +75,11 @@ def memalg_esc( osmem, p, pt ):
 				best_idx = cur
 				best_lvl = 1
 
-			elif ( page.referenced and not page.modified and best_lvl > 2 ):
+			elif ( not page.referenced and page.modified and best_lvl > 2 ):
 				best_idx = cur
 				best_lvl = 2
 
-			elif ( not page.referenced and page.modified and best_lvl > 3 ):
+			elif ( page.referenced and not page.modified and best_lvl > 3 ):
 				best_idx = cur
 				best_lvl = 3
 
