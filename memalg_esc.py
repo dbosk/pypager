@@ -67,7 +67,7 @@ def memalg_esc( osmem, p, pt ):
 		best_idx = qhead
 
 		for i in range( len( queue ) ):
-			cur = qhead % len( queue )
+			cur = qhead
 			page = pt[ queue[ cur ] ]
 
 			# check the different classes
@@ -101,7 +101,7 @@ def memalg_esc( osmem, p, pt ):
 		pt[p].frame = pt[pn].frame
 
 		# update the queue, add the new page to the end of the queue
-		queue[ qhead % len(queue) ] = p
+		queue[ qhead ] = p
 		qhead = ( qhead + 1 ) % len( queue )
 
 	# actually swap in the page
